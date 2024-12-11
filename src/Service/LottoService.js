@@ -1,6 +1,7 @@
 import Lotto from '../Model/Lotto.js';
 import getLottoAmount from '../Util/getLottoAmount.js';
 import getRandomNumbers from '../Util/getRandomNumbers.js';
+import parseRate from '../Util/parseRate.js';
 
 class LottoService {
   price;
@@ -44,7 +45,7 @@ class LottoService {
   }
 
   calculateRate() {
-    return (this.calculateWinnings / this.price) * 100;
+    return parseRate((this.calculateWinnings / this.price) * 100);
   }
 }
 
