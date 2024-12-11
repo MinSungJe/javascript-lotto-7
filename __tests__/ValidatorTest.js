@@ -25,3 +25,32 @@ describe('Validator 서비스: 구입 금액', () => {
     }).toThrow('[ERROR]');
   });
 });
+
+describe('Validator 서비스: 당첨 번호', () => {
+  test('당첨 번호는 모두 숫자로 이루어져 있어야 한다.', () => {
+    expect(() => {
+      Validator.winningNumber('1,2,3,4,hello,6');
+    }).toThrow('[ERROR]');
+    expect(() => {
+      Validator.winningNumber('1,2,3,4,,6');
+    }).toThrow('[ERROR]');
+  });
+
+  test('당첨 번호는 중복이 없어야 한다.', () => {
+    expect(() => {
+      Validator.winningNumber('1,2,3,3,4,5');
+    }).toThrow('[ERROR]');
+  });
+
+  test('당첨 번호는 6개여야 한다.', () => {
+    expect(() => {
+      Validator.winningNumber('1,2,3,4,5');
+    }).toThrow('[ERROR]');
+  });
+
+  test('올바른 입력', () => {
+    expect(() => {
+      Validator.winningNumber('1,2,3,4,5,6');
+    }).not.toThrow('[ERROR]');
+  });
+});

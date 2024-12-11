@@ -8,6 +8,13 @@ const Validator = {
     if (!Checker.isRangedNumber(Number(priceString), 1_000, 100_000))
       throwError('범위 내 금액이 아닙니다.');
   },
+
+  winningNumber(winningNumberString) {
+    const winningNumber = winningNumberString.split(',');
+    if (!Checker.isCorrectLength(winningNumber, 6)) throwError('6개의 값이 아닙니다.');
+    if (!Checker.isAllNumberString(winningNumber)) throwError('숫자를 입력하지 않으셨습니다.');
+    if (!Checker.isNoRepeat(winningNumber)) throwError('중복값이 있습니다.');
+  },
 };
 
 const Checker = {
@@ -23,6 +30,26 @@ const Checker = {
 
   isUnitNumber: (inputNumber, unit) => {
     return inputNumber % unit === 0;
+  },
+
+  isCorrectLength: (list, length) => {
+    return list.length === length;
+  },
+
+  isAllNumberString: (list) => {
+    return list.every(Checker.isNumberString);
+  },
+
+  isAllRangedNumberString: (list) => {
+    return list.every((string) => {
+      const number = Number(string);
+      return Checker.isRangedNumber(number, 1, 45);
+    });
+  },
+
+  isNoRepeat: (list) => {
+    const set = new Set(list);
+    return list.length === set.size;
   },
 };
 
