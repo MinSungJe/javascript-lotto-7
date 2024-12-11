@@ -15,6 +15,14 @@ const Validator = {
     if (!Checker.isAllNumberString(winningNumber)) throwError('숫자를 입력하지 않으셨습니다.');
     if (!Checker.isNoRepeat(winningNumber)) throwError('중복값이 있습니다.');
   },
+
+  bonusNumber(bonusNumberString, winningNumber = []) {
+    if (!Checker.isNumberString(bonusNumberString)) throwError('숫자가 아닙니다.');
+    if (!Checker.isRangedNumber(Number(bonusNumberString), 1, 45))
+      throwError('범위 내 숫자가 아닙니다.');
+    if (!Checker.isNotIncludedValue(Number(bonusNumberString), winningNumber))
+      throwError('당첨 번호와 중복된 값이 있습니다.');
+  },
 };
 
 const Checker = {
@@ -50,6 +58,10 @@ const Checker = {
   isNoRepeat: (list) => {
     const set = new Set(list);
     return list.length === set.size;
+  },
+
+  isNotIncludedValue: (value, list) => {
+    return !list.includes(value);
   },
 };
 

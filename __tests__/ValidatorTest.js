@@ -54,3 +54,29 @@ describe('Validator 서비스: 당첨 번호', () => {
     }).not.toThrow('[ERROR]');
   });
 });
+
+describe('Validator 클래스 검증: 보너스 번호', () => {
+  test('보너스 번호는 숫자로 이루어져 있다.', () => {
+    expect(() => {
+      Validator.bonusNumber('hello');
+    }).toThrow('[ERROR]');
+  });
+
+  test('보너스 번호는 1부터 45 이내의 숫자이다.', () => {
+    expect(() => {
+      Validator.bonusNumber('60');
+    }).toThrow('[ERROR]');
+  });
+
+  test('보너스 번호는 당첨 번호와 중복이 되면 안된다.', () => {
+    expect(() => {
+      Validator.bonusNumber('1', [1, 2, 3, 4, 5, 6]);
+    }).toThrow('[ERROR]');
+  });
+
+  test('올바른 입력', () => {
+    expect(() => {
+      Validator.bonusNumber('7', [1, 2, 3, 4, 5, 6]);
+    }).not.toThrow('[ERROR]');
+  });
+});
