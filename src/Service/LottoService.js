@@ -1,3 +1,4 @@
+import Lotto from '../Model/Lotto.js';
 import getLottoAmount from '../Util/getLottoAmount.js';
 import getRandomNumbers from '../Util/getRandomNumbers.js';
 
@@ -13,7 +14,21 @@ class LottoService {
   };
 
   constructor(price, winningNumber, bonusNumber) {
-    this.lottoes = Array(getLottoAmount(price)).map(getRandomNumbers);
+    this.#getLottoes(price);
+    this.#getResult(winningNumber, bonusNumber);
+  }
+
+  #getLottoes(price) {
+    this.lottoes = Array.from(
+      { length: getLottoAmount(price) },
+      () => new Lotto(getRandomNumbers())
+    );
+  }
+
+  #getResult(winningNumber, bonusNumber) {
+    this.lottoes.forEach((lotto) => {
+      this.result[lotto.getResult(winningNumber, bonusNumber)] += 1;
+    });
   }
 }
 

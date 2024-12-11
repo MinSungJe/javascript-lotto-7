@@ -19,6 +19,16 @@ class Lotto {
   getBonusInclude(bonusNumber) {
     return this.#numbers.includes(bonusNumber);
   }
+
+  getResult(winningNumber, bonusNumber) {
+    if (this.getWinningCount(winningNumber) === 6) return 'first';
+    if (this.getWinningCount(winningNumber) === 5 && this.getBonusInclude(bonusNumber))
+      return 'second';
+    if (this.getWinningCount(winningNumber) === 5) return 'third';
+    if (this.getWinningCount(winningNumber) === 4) return 'fourth';
+    if (this.getWinningCount(winningNumber) === 3) return 'fifth';
+    return 'miss';
+  }
 }
 
 export default Lotto;
