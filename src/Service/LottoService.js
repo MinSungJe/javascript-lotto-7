@@ -1,11 +1,5 @@
-import Lotto from '../Model/Lotto.js';
-import getLottoAmount from '../Util/getLottoAmount.js';
-import getRandomNumbers from '../Util/getRandomNumbers.js';
-import parseRate from '../Util/parseRate.js';
-
 class LottoService {
-  price;
-  lottoes;
+  #lottoes;
   result = {
     first: 0,
     second: 0,
@@ -15,21 +9,13 @@ class LottoService {
     miss: 0,
   };
 
-  constructor(price, winningNumber, bonusNumber) {
-    this.price = price;
-    this.#getLottoes(price);
+  constructor(lottoes, winningNumber, bonusNumber) {
+    this.#lottoes = lottoes;
     this.#getResult(winningNumber, bonusNumber);
   }
 
-  #getLottoes(price) {
-    this.lottoes = Array.from(
-      { length: getLottoAmount(price) },
-      () => new Lotto(getRandomNumbers())
-    );
-  }
-
   #getResult(winningNumber, bonusNumber) {
-    this.lottoes.forEach((lotto) => {
+    this.#lottoes.forEach((lotto) => {
       this.result[lotto.getResult(winningNumber, bonusNumber)] += 1;
     });
   }
@@ -42,10 +28,6 @@ class LottoService {
       50_000 * this.result.fourth +
       5_000 * this.result.fifth
     );
-  }
-
-  calculateRate() {
-    return parseRate((this.calculateWinnings / this.price) * 100);
   }
 }
 

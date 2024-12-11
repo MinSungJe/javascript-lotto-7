@@ -12,6 +12,10 @@ class Lotto {
     Validator.lotto(numbers);
   }
 
+  getNumberString() {
+    return `[${this.#numbers.join(', ')}]`;
+  }
+
   getWinningCount(winningNumber) {
     return this.#numbers.filter((number) => winningNumber.includes(number)).length;
   }
