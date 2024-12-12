@@ -1,18 +1,20 @@
+import throwError from './Util/throwError.js';
+
 class Lotto {
-  #numbers;
+  numbers;
 
   constructor(numbers) {
     this.#validate(numbers);
-    this.#numbers = numbers;
+    this.numbers = numbers;
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
-    }
-  }
+    if (numbers.length !== 6) throwError('로또 번호는 6개여야 합니다.');
 
-  // TODO: 추가 기능 구현
+    const numbersSet = new Set(numbers);
+
+    if (numbersSet.size !== 6) throwError('중복값이 있으면 안됩니다.');
+  }
 }
 
 export default Lotto;
