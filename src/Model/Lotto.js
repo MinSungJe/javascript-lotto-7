@@ -1,4 +1,5 @@
 import Validator from '../Service/Validator.js';
+import OutputView from '../View/OutputView.js';
 
 class Lotto {
   #numbers;
@@ -10,6 +11,10 @@ class Lotto {
 
   #validate(numbers) {
     Validator.lotto(numbers);
+  }
+
+  printNumber() {
+    OutputView.printMessage(`[${this.#numbers.join(', ')}]`);
   }
 
   getWinningCount(winningNumber) {
